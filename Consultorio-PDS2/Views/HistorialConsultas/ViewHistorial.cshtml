@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Filmify.Models.HistorialConsulta>
+
+@{
+    ViewData["Title"] = "Historial del Paciente";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Historial de Consultas</h2>
+
+    <!-- 🔍 Filtro de búsqueda -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form asp-controller="HistorialConsultas" asp-action="ViewHistorial" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="IdPaciente" class="form-label">ID Paciente</label>
+                    <input type="number" class="form-control" id="IdPaciente" name="IdPaciente" placeholder="Ej. 1" />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="IdDoctor" class="form-label">ID Doctor</label>
+                    <input type="number" class="form-control" id="IdDoctor" name="IdDoctor" placeholder="Ej. 2" />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="FechaInicio" class="form-label">Desde</label>
+                    <input type="date" class="form-control" id="FechaInicio" name="FechaInicio" />
+                </div>
+
+                <div class="col-md-4">
+                    <label for="FechaFin" class="form-label">Hasta</label>
+                    <input type="date" class="form-control" id="FechaFin" name="FechaFin" />
+                </div>
+
+                <div class="col-12 text-center mt-3">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 📋 Tabla de resultados -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive shadow-sm">
+            <table class="table table-striped align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Diagnóstico</th>
+                        <th>Tratamiento</th>
+                        <th>Observaciones</th>
+                        <th>Doctor</th>
+                        <th>ID</th>
+                        <th>Especialidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var consulta in Model)
+                    {
+                        <tr>
+                            <td>@consulta.FechaConsulta.ToShortDateString()</td>
+                            <td>@consulta.Motivo</td>
+                            <td>@consulta.Diagnostico</td>
+                            <td>@consulta.Tratamiento</td>
+                            <td>@consulta.Observaciones</td>
+                            <td>@consulta.NombreDoctor @consulta.ApellidoDoctor</td>
+                            <td>@consulta.IdDoctor</td>
+                            <td>@consulta.EspecialidadDoctor</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            Ingresa los criterios de búsqueda y haz clic en <strong>Buscar</strong> para ver los resultados.
+        </div>
+    }
+</div>

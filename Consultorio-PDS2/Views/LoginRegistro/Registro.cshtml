@@ -1,0 +1,43 @@
+﻿@model Usuario
+
+@{
+	ViewData["Title"] = "Crear Cuenta";
+
+}
+<h1> Crea tu Cuenta</h1>
+<h5>
+	Registra tu cuenta para que puedas realizar tus reseñas
+</h5>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Usuarios" asp-action="Crear" method="post">
+	<div class="mb-3">
+		<label asp-for="NombreUsuario" class="form-label"></label>
+		<input type="text" asp-for="NombreUsuario" class="form-control" />
+		<span asp-validation-for="NombreUsuario" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+	<label asp-for="EMail" class="form-label"></label>
+	<input type="email" asp-for="EMail" class="form-control" />
+	<span asp-validation-for="EMail" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Contrasena" class="form-label"></label>
+		<input type="password" asp-for="Contrasena" class="form-control" />
+		<span asp-validation-for="Contrasena" class="text-danger"></span>
+	</div>
+	<div class="mb-3">
+		<label asp-for="Rol" class="form-label"></label>
+		<input type="text" asp-for="Rol" class="form-control" />
+		<span asp-validation-for="Rol" class="text-danger"></span>
+	</div>
+
+
+	<button type="submit" class="btn btn-primary">Enviar</button>
+	<a class="btn btn-secondary" href="/">Cancelar</a>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
