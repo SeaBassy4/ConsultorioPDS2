@@ -20,11 +20,11 @@ namespace Filmify.Controllers
 
             if (IdPaciente.HasValue)
             {
-                // 🔹 Llama al SP solo con IdPaciente
+                // Llama al SP solo con IdPaciente
                 var resultado = await repositorioHistorial.ObtenerPorPaciente(IdPaciente.Value);
                 consultas = resultado.ToList();
 
-                // 🔹 Filtros adicionales aplicados en C#
+                // Filtros
                 if (IdDoctor.HasValue)
                     consultas = consultas.Where(c => c.IdDoctor == IdDoctor.Value).ToList();
 

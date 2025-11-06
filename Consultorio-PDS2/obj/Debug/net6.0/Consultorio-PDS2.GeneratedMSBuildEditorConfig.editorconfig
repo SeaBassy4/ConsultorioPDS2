@@ -15,6 +15,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\sebas\OneDrive\Documentos\Unison Sebastian\Unison Semester 2025-2\PDS II\Consultorio-PDS2\Consultorio-PDS2
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/sebas/OneDrive/Documentos/Unison Sebastian/Unison Semester 2025-2/PDS II/Consultorio-PDS2/Consultorio-PDS2/Views/Doctor/RegistrarConsulta.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXFJlZ2lzdHJhckNvbnN1bHRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sebas/OneDrive/Documentos/Unison Sebastian/Unison Semester 2025-2/PDS II/Consultorio-PDS2/Consultorio-PDS2/Views/Doctor/RegistrarPaciente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXFJlZ2lzdHJhclBhY2llbnRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sebas/OneDrive/Documentos/Unison Sebastian/Unison Semester 2025-2/PDS II/Consultorio-PDS2/Consultorio-PDS2/Views/Doctor/VerConsultas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yXFZlckNvbnN1bHRhcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sebas/OneDrive/Documentos/Unison Sebastian/Unison Semester 2025-2/PDS II/Consultorio-PDS2/Consultorio-PDS2/Views/HistorialConsultas/ViewHistorial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaWFsQ29uc3VsdGFzXFZpZXdIaXN0b3JpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

@@ -7,7 +7,7 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4 text-primary">Historial de Consultas</h2>
 
-    <!-- 🔍 Filtro de búsqueda -->
+    <!--  Filtro de búsqueda -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <form asp-controller="HistorialConsultas" asp-action="ViewHistorial" method="get" class="row g-3">
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <!-- 📋 Tabla de resultados -->
+    <!-- Tabla de resultados -->
     @if (Model != null && Model.Any())
     {
         <div class="table-responsive shadow-sm">

@@ -7,6 +7,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddTransient<IRepositorioHistorialConsultas, RepositorioHistorialConsultas>();
+builder.Services.AddTransient<IRepositorioPacientes, RepositorioPacientes>();
+builder.Services.AddTransient<IRepositorioConsultas, RepositorioConsultas>();
 
 
 var app = builder.Build();

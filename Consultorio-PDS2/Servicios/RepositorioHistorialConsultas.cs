@@ -9,6 +9,7 @@ namespace Filmify.Servicios
 {
     public interface IRepositorioHistorialConsultas
     {
+        Task<IEnumerable<Consulta>> ObtenerPorDoctorYPaciente(int idDoctor, int idPaciente);
         Task<IEnumerable<HistorialConsulta>> ObtenerPorPaciente(int idPaciente);
     }
 
@@ -30,5 +31,17 @@ namespace Filmify.Servicios
                 new { IdPaciente = idPaciente },
                 commandType: CommandType.StoredProcedure);
         }
+
+        public async Task<IEnumerable<Consulta>> ObtenerPorDoctorYPaciente(int idDoctor, int idPaciente)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Consulta>(
+                "EXEC sp_ConsultasPorDoctorYPaciente @IdDoctor, @IdPaciente",
+                new { IdDoctor = idDoctor, IdPaciente = idPaciente });
+        }
+
+
+
+
     }
 }
