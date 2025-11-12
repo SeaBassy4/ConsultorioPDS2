@@ -1,28 +1,117 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ConsultorioPDS - Inicio";
 }
 
-<div class="container py-5 text-center">
-    <h1 class="display-4 fw-bold mb-3 text-primary">Bienvenido a ConsultorioPDS</h1>
-    <p class="lead mb-5 text-muted">
-        Gestiona tus reseñas, usuarios y consultas médicas de manera fácil y rápida.
-    </p>
+<style>
+    body {
+        background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        min-height: 100vh;
+        font-family: 'Poppins', sans-serif;
+    }
 
-    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
-        <a asp-controller="LoginRegistro" asp-action="Registro" class="btn btn-lg btn-outline-primary px-4 py-2">
-            <i class="bi bi-person-plus"></i> Registro 
-        </a>
+    .hero-section {
+        padding: 6rem 1rem;
+        text-align: center;
+    }
 
-        <a asp-controller="Doctor" asp-action="VerConsultas" class="btn btn-lg btn-success px-4 py-2">
-            <i class="bi bi-people"></i> Ver Pacientes / Consultas
-        </a>
+    .hero-section h1 {
+        font-weight: 700;
+        color: #1976d2;
+    }
 
-        <a asp-controller="Doctor" asp-action="RegistrarConsulta" class="btn btn-lg btn-primary px-4 py-2">
-            <i class="bi bi-people"></i> Registrar Consulta
-        </a>
-        <a asp-controller="Doctor" asp-action="RegistrarPaciente" class="btn btn-lg btn-primary px-4 py-2">
-        <i class="bi bi-person-plus"></i> Registrar Paciente
-        </a>
+    .hero-section p {
+        color: #555;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-custom {
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .dashboard-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .card-option {
+        width: 260px;
+        border: none;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .card-option:hover {
+        transform: scale(1.05);
+    }
+
+    .card-option .card-body i {
+        font-size: 2.5rem;
+        color: #1976d2;
+        margin-bottom: 1rem;
+    }
+
+    .footer-text {
+        color: #777;
+        margin-top: 4rem;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="hero-section">
+    <h1 class="display-5">Bienvenido a <span class="text-primary">ConsultorioPDS</span></h1>
+    <p>Gestiona tus <strong>pacientes</strong>, <strong>consultas</strong> y <strong>reseñas</strong> médicas de forma profesional y sencilla.</p>
+
+    <div class="dashboard-cards">
+
+        <div class="card card-option text-center p-4">
+            <div class="card-body">
+                <i class="bi bi-person-plus-fill"></i>
+                <h5 class="card-title mt-2">Registrar Paciente</h5>
+                <p class="card-text text-muted mb-3">Agrega nuevos pacientes al sistema.</p>
+                <a asp-controller="Doctor" asp-action="RegistrarPaciente" class="btn btn-primary btn-custom">Registrar</a>
+            </div>
+        </div>
+
+        <div class="card card-option text-center p-4">
+            <div class="card-body">
+                <i class="bi bi-clipboard2-plus-fill"></i>
+                <h5 class="card-title mt-2">Registrar Consulta</h5>
+                <p class="card-text text-muted mb-3">Registra nuevas consultas médicas.</p>
+                <a asp-controller="Doctor" asp-action="RegistrarConsulta" class="btn btn-success btn-custom">Registrar</a>
+            </div>
+        </div>
+
+        <div class="card card-option text-center p-4">
+            <div class="card-body">
+                <i class="bi bi-person-lines-fill"></i>
+                <h5 class="card-title mt-2">Ver Consultas</h5>
+                <p class="card-text text-muted mb-3">Consulta el historial de tus pacientes.</p>
+                <a asp-controller="Doctor" asp-action="VerConsultas" class="btn btn-outline-primary btn-custom">Ver</a>
+            </div>
+        </div>
+
+        <div class="card card-option text-center p-4">
+            <div class="card-body">
+                <i class="bi bi-door-open-fill"></i>
+                <h5 class="card-title mt-2">Registro</h5>
+                <p class="card-text text-muted mb-3">Crea una nueva cuenta de usuario.</p>
+                <a asp-controller="LoginRegistro" asp-action="Registro" class="btn btn-outline-secondary btn-custom">Ir</a>
+            </div>
+        </div>
 
     </div>
+
+    <p class="footer-text">© 2025 ConsultorioPDS | Sistema de gestión médica</p>
 </div>

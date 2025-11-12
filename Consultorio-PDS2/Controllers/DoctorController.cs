@@ -8,7 +8,6 @@ public class DoctorController : Controller
     private readonly IRepositorioPacientes repositorioPacientes;
     private readonly IRepositorioHistorialConsultas repositorioHistorial;
     private readonly IRepositorioConsultas repositorioConsultas;
-    private readonly IRepositorioPacientes _repositorioPacientes;
 
 
     public DoctorController(
@@ -63,7 +62,7 @@ public class DoctorController : Controller
         await repositorioConsultas.Crear(consulta);
 
         TempData["mensaje"] = "Consulta registrada exitosamente.";
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
