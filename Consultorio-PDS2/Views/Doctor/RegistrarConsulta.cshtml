@@ -1,44 +1,44 @@
-﻿@model Consulta
+﻿@model RegistrarConsultaViewModel
 
 <h2>Registrar Nueva Consulta</h2>
 
 <form asp-action="RegistrarConsulta" method="post">
     <div>
         <label>Motivo</label>
-        <input asp-for="Motivo" class="form-control" />
+        <input asp-for="Consulta.Motivo" class="form-control" />
     </div>
 
     <div>
         <label>Diagnóstico</label>
-        <input asp-for="Diagnostico" class="form-control" />
+        <input asp-for="Consulta.Diagnostico" class="form-control" />
     </div>
 
     <div>
         <label>Tratamiento</label>
-        <input asp-for="Tratamiento" class="form-control" />
+        <input asp-for="Consulta.Tratamiento" class="form-control" />
     </div>
 
     <div>
         <label>Observaciones</label>
-        <textarea asp-for="Observaciones" class="form-control"></textarea>
+        <textarea asp-for="Consulta.Observaciones" class="form-control"></textarea>
     </div>
 
     <div>
         <label>Estado</label>
-        <select asp-for="Estado" class="form-control">
+        <select asp-for="Consulta.Estado" class="form-control">
             <option value="Pendiente">Pendiente</option>
             <option value="Completada">Completada</option>
         </select>
     </div>
 
     <div>
-        <label>ID Doctor</label>
-        <input asp-for="IdDoctor" class="form-control" />
+        <label>Doctor</label>
+        <select asp-for="Consulta.IdDoctor" asp-items="Model.Doctores" class="form-control"></select>
     </div>
 
     <div>
-        <label>ID Paciente</label>
-        <input asp-for="IdPaciente" class="form-control" />
+        <label>Paciente</label>
+        <select asp-for="Consulta.IdPaciente" asp-items="Model.Pacientes" class="form-control"> </select> 
     </div>
 
     <button type="submit" class="btn btn-primary mt-3">Registrar</button>

@@ -1,5 +1,7 @@
-﻿using Filmify.Servicios;
+﻿using Consultorio_PDS2.Controllers;
+using Consultorio_PDS2.Models;
 using Filmify.Models;
+using Filmify.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,17 +10,21 @@ public class DoctorController : Controller
     private readonly IRepositorioPacientes repositorioPacientes;
     private readonly IRepositorioHistorialConsultas repositorioHistorial;
     private readonly IRepositorioConsultas repositorioConsultas;
+    private readonly IRepositorioDoctores repositorioDoctores;
+
 
 
     public DoctorController(
         IRepositorioPacientes repositorioPacientes,
         IRepositorioHistorialConsultas repositorioHistorial,
-        IRepositorioConsultas repositorioConsultas
+        IRepositorioConsultas repositorioConsultas,
+        IRepositorioDoctores repositorioDoctores
         )
     {
         this.repositorioPacientes = repositorioPacientes;
         this.repositorioHistorial = repositorioHistorial;
         this.repositorioConsultas = repositorioConsultas;
+        this.repositorioDoctores = repositorioDoctores;
     }
 
     [HttpGet]
@@ -68,7 +74,20 @@ public class DoctorController : Controller
     [HttpGet]
     public IActionResult RegistrarConsulta()
     {
-        return View();
+
+        var doctores = repositorioDoctores.ObtenerTodos();
+        var pacientes = repositorioPacientes.ObtenerTodos();
+
+        var viewModel = new RegistrarConsultaViewModel
+        {
+            Consulta = new Consulta(),
+            Doctores = doctores.Result.Select(d =>
+                new SelectListItem($"{d.Nombre} {d.Apellido}", d.IdDoctor.ToString())),
+            Pacientes = pacientes.Result.Select(p =>
+                new SelectListItem($"{p.Nombre} {p.Apellido}", p.IdPaciente.ToString()))
+        };
+
+        return View(viewModel);
     }
 
 

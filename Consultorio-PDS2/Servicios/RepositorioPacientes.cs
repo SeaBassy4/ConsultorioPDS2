@@ -9,6 +9,7 @@ namespace Filmify.Servicios
     {
         Task<IEnumerable<Paciente>> ObtenerPorDoctor(int idDoctor);
         Task Crear(Paciente paciente); // 👈 nuevo método
+        Task<IEnumerable<Paciente>> ObtenerTodos();
     }
 
     public class RepositorioPacientes : IRepositorioPacientes
@@ -18,6 +19,12 @@ namespace Filmify.Servicios
         public RepositorioPacientes(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+
+        public async Task<IEnumerable<Paciente>> ObtenerTodos()
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Paciente>("SELECT * FROM Pacientes");
         }
 
         public async Task<IEnumerable<Paciente>> ObtenerPorDoctor(int idDoctor)

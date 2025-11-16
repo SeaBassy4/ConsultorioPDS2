@@ -1,3 +1,4 @@
+using Consultorio_PDS2;
 using Filmify.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddTransient<IRepositorioHistorialConsultas, RepositorioHistorialConsultas>();
 builder.Services.AddTransient<IRepositorioPacientes, RepositorioPacientes>();
 builder.Services.AddTransient<IRepositorioConsultas, RepositorioConsultas>();
+builder.Services.AddTransient<IRepositorioDoctores, RepositorioDoctores>();
 
 
 var app = builder.Build();
