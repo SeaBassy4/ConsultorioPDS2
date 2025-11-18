@@ -22,8 +22,8 @@ namespace Filmify.Servicios
         {
             using var connection = new SqlConnection(connectionString);
             var query = @"INSERT INTO Consultas 
-                        (Motivo, Diagnostico, Tratamiento, Observaciones, FechaConsulta, Estado, IdDoctor, IdPaciente)
-                        VALUES (@Motivo, @Diagnostico, @Tratamiento, @Observaciones, @FechaConsulta, @Estado, @IdDoctor, @IdPaciente)";
+                        (Motivo, Diagnostico, Tratamiento, Observaciones, FechaConsulta, IdDoctor, IdPaciente)
+                        VALUES (@Motivo, @Diagnostico, @Tratamiento, @Observaciones, @FechaConsulta, @IdDoctor, @IdPaciente)";
 
             await connection.ExecuteAsync(query, consulta);
         }

@@ -8,7 +8,7 @@ public class Consulta
     public string Tratamiento { get; set; } = string.Empty;
     public string Observaciones { get; set; } = string.Empty;
     public DateTime FechaConsulta { get; set; }
-    public string Estado { get; set; } = string.Empty;
+    //public string Estado { get; set; } = string.Empty;
     public int IdDoctor { get; set; }
     public int IdPaciente { get; set; }
 }

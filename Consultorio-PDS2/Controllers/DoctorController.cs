@@ -50,7 +50,7 @@ public class DoctorController : Controller
                 Diagnostico = c.Diagnostico,
                 Tratamiento = c.Tratamiento,
                 Observaciones = c.Observaciones,
-                Estado = c.Estado
+                //Estado = c.Estado
             });
 
         }
