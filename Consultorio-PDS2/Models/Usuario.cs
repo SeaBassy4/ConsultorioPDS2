@@ -4,7 +4,7 @@ namespace Filmify.Models
 {
     public class Usuario
     {
-        public int Id { get; set; }
+        public int idUsuario { get; set; }   // ✔ ahora coincide con BD
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
         public string NombreUsuario { get; set; }
@@ -18,6 +18,5 @@ namespace Filmify.Models
         public string Contrasena { get; set; }
 
         public string Rol { get; set; }
-
     }
 }

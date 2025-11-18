@@ -1,9 +1,11 @@
 ﻿using Filmify.Models;
 using Filmify.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Filmify.Controllers
 {
+    [Authorize(Roles = "Doctor")]
     public class HistorialConsultasController : Controller
     {
         private readonly IRepositorioHistorialConsultas repositorioHistorial;

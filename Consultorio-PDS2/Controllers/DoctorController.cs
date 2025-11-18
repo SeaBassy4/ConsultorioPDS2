@@ -1,10 +1,11 @@
-﻿using Consultorio_PDS2.Controllers;
-using Consultorio_PDS2.Models;
+﻿using Filmify.Servicios;
 using Filmify.Models;
-using Filmify.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Consultorio_PDS2.Models;
 
+[Authorize(Roles = "Doctor")]
 public class DoctorController : Controller
 {
     private readonly IRepositorioPacientes repositorioPacientes;
@@ -50,7 +51,7 @@ public class DoctorController : Controller
                 Tratamiento = c.Tratamiento,
                 Observaciones = c.Observaciones,
                 Estado = c.Estado
-            }) ;
+            });
 
         }
 

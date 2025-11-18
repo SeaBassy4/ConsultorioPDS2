@@ -9,27 +9,19 @@
           "System.Reflection.Emit.Lightweight": "4.7.0"
         },
         "compile": {
-          "lib/netstandard2.0/Dapper.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Dapper.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Dapper.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Dapper.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/9.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {}
         },
         "build": {
           "buildTransitive/netcoreapp2.0/Microsoft.Bcl.AsyncInterfaces.targets": {}
@@ -76,14 +68,10 @@
           "runtime.native.System.Data.SqlClient.sni": "4.4.0"
         },
         "compile": {
-          "lib/net6.0/System.Data.SqlClient.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.Data.SqlClient.dll": {}
         },
         "runtime": {
-          "lib/net6.0/System.Data.SqlClient.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.Data.SqlClient.dll": {}
         },
         "build": {
           "buildTransitive/net6.0/_._": {}
@@ -318,24 +306,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kacto\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\sebas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kacto\\source\\repos\\ConsultorioPDS2\\Consultorio-PDS2\\Consultorio-PDS2.csproj",
+      "projectUniqueName": "C:\\Users\\sebas\\OneDrive\\Documentos\\Unison Sebastian\\Unison Semester 2025-2\\PDS II\\Consultorio-PDS2\\Consultorio-PDS2\\Consultorio-PDS2.csproj",
       "projectName": "Consultorio-PDS2",
-      "projectPath": "C:\\Users\\Kacto\\source\\repos\\ConsultorioPDS2\\Consultorio-PDS2\\Consultorio-PDS2.csproj",
-      "packagesPath": "C:\\Users\\Kacto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kacto\\source\\repos\\ConsultorioPDS2\\Consultorio-PDS2\\obj\\",
+      "projectPath": "C:\\Users\\sebas\\OneDrive\\Documentos\\Unison Sebastian\\Unison Semester 2025-2\\PDS II\\Consultorio-PDS2\\Consultorio-PDS2\\Consultorio-PDS2.csproj",
+      "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sebas\\OneDrive\\Documentos\\Unison Sebastian\\Unison Semester 2025-2\\PDS II\\Consultorio-PDS2\\Consultorio-PDS2\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Kacto\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -355,13 +338,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net6.0": {
@@ -382,8 +359,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -395,7 +371,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

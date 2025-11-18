@@ -37,7 +37,7 @@ namespace Filmify.Servicios
                 "SELECT * FROM Doctores WHERE IdDoctor = @IdDoctor", new { IdDoctor = idDoctor });
         }
 
-       
+
 
         // ✅ Crear un nuevo doctor
         public async Task Crear(Doctor doctor)

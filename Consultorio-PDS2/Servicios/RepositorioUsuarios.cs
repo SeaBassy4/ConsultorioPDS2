@@ -5,6 +5,13 @@ using System.Data.SqlClient;
 
 namespace Filmify.Servicios
 {
+    public interface IRepositorioUsuarios
+    {
+        Task Crear(Usuario usuario);
+        Task<Usuario?> ObtenerPorId(int idUsuario);
+        Task<bool> VerificarCredenciales(int idUsuario, string contrasenaPlain);
+    }
+
     public class RepositorioUsuarios : IRepositorioUsuarios
     {
         private readonly string connectionString;
@@ -17,16 +24,35 @@ namespace Filmify.Servicios
         public async Task Crear(Usuario usuario)
         {
             using var connection = new SqlConnection(connectionString);
-            await connection.OpenAsync();
-
             await connection.ExecuteAsync(@"
                 INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, EMail)
                 VALUES (@NombreUsuario, @Contrasena, @Rol, @EMail);", usuario);
         }
-    }
 
-    public interface IRepositorioUsuarios
-    {
-        Task Crear(Usuario usuario);
+        // ✔ CORREGIDO: ahora usa idUsuario correctamente
+        public async Task<Usuario?> ObtenerPorId(int idUsuario)
+        {
+            using var connection = new SqlConnection(connectionString);
+
+            return await connection.QueryFirstOrDefaultAsync<Usuario>(
+                @"SELECT idUsuario AS Id,
+                         NombreUsuario,
+                         Contrasena,
+                         Rol,
+                         EMail
+                  FROM Usuarios
+                  WHERE idUsuario = @idUsuario",
+                new { idUsuario });
+        }
+
+        // ✔ Verifica por idUsuario, no por nombre
+        public async Task<bool> VerificarCredenciales(int idUsuario, string contrasenaPlain)
+        {
+            var usuario = await ObtenerPorId(idUsuario);
+            if (usuario == null)
+                return false;
+
+            return usuario.Contrasena == contrasenaPlain;
+        }
     }
 }

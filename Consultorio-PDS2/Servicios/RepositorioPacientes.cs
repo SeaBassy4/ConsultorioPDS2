@@ -27,6 +27,7 @@ namespace Filmify.Servicios
             return await connection.QueryAsync<Paciente>("SELECT * FROM Pacientes");
         }
 
+
         public async Task<IEnumerable<Paciente>> ObtenerPorDoctor(int idDoctor)
         {
             using var connection = new SqlConnection(connectionString);
