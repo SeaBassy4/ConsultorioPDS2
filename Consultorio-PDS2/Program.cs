@@ -12,6 +12,9 @@ builder.Services.AddTransient<IRepositorioHistorialConsultas, RepositorioHistori
 builder.Services.AddTransient<IRepositorioPacientes, RepositorioPacientes>();
 builder.Services.AddTransient<IRepositorioConsultas, RepositorioConsultas>();
 builder.Services.AddTransient<IRepositorioDoctores, RepositorioDoctores>();
+builder.Services.AddTransient<IRepositorioPagos, RepositorioPagos>();
+
+
 
 //  Add Authentication + Cookie scheme
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

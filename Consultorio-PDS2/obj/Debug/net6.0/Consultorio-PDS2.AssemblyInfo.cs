@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Consultorio-PDS2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b35dfb5693c2f1b5b86ec4ea8b874013c8bc4c9f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f3456e2eea5da2f5569d6daf0e966c428c54b27")]
 [assembly: System.Reflection.AssemblyProductAttribute("Consultorio-PDS2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Consultorio-PDS2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

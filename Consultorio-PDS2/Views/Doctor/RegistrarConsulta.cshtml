@@ -41,5 +41,22 @@
         <select asp-for="Consulta.IdPaciente" asp-items="Model.Pacientes" class="form-control"> </select> 
     </div>
 
+    <!-- Campos de Pago -->
+
+    <div>
+        <label>Monto</label>
+        <input asp-for="Pago.Monto" class="form-control" />
+    </div>
+
+    <div>
+        <label>Método de Pago</label>
+        <select asp-for="Pago.MetodoPago" class="form-control">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Transferencia">Transferencia</option>
+        </select>
+    </div>
+
+
     <button type="submit" class="btn btn-primary mt-3">Registrar</button>
 </form>

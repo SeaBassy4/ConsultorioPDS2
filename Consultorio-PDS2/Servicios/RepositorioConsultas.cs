@@ -6,7 +6,8 @@ namespace Filmify.Servicios
 {
     public interface IRepositorioConsultas
     {
-        Task Crear(Consulta consulta);
+        Task<int> Crear(Consulta consulta);
+
     }
 
     public class RepositorioConsultas : IRepositorioConsultas
@@ -18,14 +19,18 @@ namespace Filmify.Servicios
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task Crear(Consulta consulta)
+        public async Task<int> Crear(Consulta consulta)
         {
             using var connection = new SqlConnection(connectionString);
             var query = @"INSERT INTO Consultas 
                         (Motivo, Diagnostico, Tratamiento, Observaciones, FechaConsulta, IdDoctor, IdPaciente)
-                        VALUES (@Motivo, @Diagnostico, @Tratamiento, @Observaciones, @FechaConsulta, @IdDoctor, @IdPaciente)";
+                        VALUES (@Motivo, @Diagnostico, @Tratamiento, @Observaciones, @FechaConsulta, @IdDoctor, @IdPaciente)
 
-            await connection.ExecuteAsync(query, consulta);
+                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+
+            var idConsulta = await connection.QuerySingleAsync<int>(query, consulta);
+            return idConsulta;
         }
     }
 }

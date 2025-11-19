@@ -1,9 +1,12 @@
-﻿using Filmify.Servicios;
+﻿using Consultorio_PDS2.Models;
 using Filmify.Models;
+using Filmify.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Authorization;
-using Consultorio_PDS2.Models;
+using System.Reflection;
+using System.Text.Json;
+
 
 [Authorize(Roles = "Doctor")]
 public class DoctorController : Controller
@@ -12,6 +15,7 @@ public class DoctorController : Controller
     private readonly IRepositorioHistorialConsultas repositorioHistorial;
     private readonly IRepositorioConsultas repositorioConsultas;
     private readonly IRepositorioDoctores repositorioDoctores;
+    private readonly IRepositorioPagos repositorioPagos;
 
 
 
@@ -19,13 +23,15 @@ public class DoctorController : Controller
         IRepositorioPacientes repositorioPacientes,
         IRepositorioHistorialConsultas repositorioHistorial,
         IRepositorioConsultas repositorioConsultas,
-        IRepositorioDoctores repositorioDoctores
+        IRepositorioDoctores repositorioDoctores,
+        IRepositorioPagos repositorioPagos
         )
     {
         this.repositorioPacientes = repositorioPacientes;
         this.repositorioHistorial = repositorioHistorial;
         this.repositorioConsultas = repositorioConsultas;
         this.repositorioDoctores = repositorioDoctores;
+        this.repositorioPagos = repositorioPagos;
     }
 
     [HttpGet]
@@ -60,36 +66,100 @@ public class DoctorController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> RegistrarConsulta(Consulta consulta)
+    public async Task<IActionResult> RegistrarConsulta(RegistrarConsultaViewModel modelo)
     {
-        if (!ModelState.IsValid)
-            return View(consulta);
 
-        consulta.FechaConsulta = DateTime.Now;
-        await repositorioConsultas.Crear(consulta);
+        modelo.Consulta.FechaConsulta = DateTime.Now;
+        modelo.Pago.FechaPago = DateTime.Now;
+
+        ModelState.Remove("Doctores");
+        ModelState.Remove("Pacientes");
+
+        // Recargar doctores y pacientes
+        var doctores = await repositorioDoctores.ObtenerTodos();
+        var pacientes = await repositorioPacientes.ObtenerTodos();
+
+        modelo.Doctores = doctores.Select(d =>
+            new SelectListItem($"{d.Nombre} {d.Apellido}", d.IdDoctor.ToString()));
+
+        modelo.Pacientes = pacientes.Select(p =>
+            new SelectListItem($"{p.Nombre} {p.Apellido}", p.IdPaciente.ToString()));
+
+
+        if (!ModelState.IsValid)
+        {
+
+            Console.WriteLine("===== ERRORES DETALLADOS DE MODELSTATE =====");
+            foreach (var key in ModelState.Keys)
+            {
+                var entry = ModelState[key];
+                if (entry.Errors.Count > 0)
+                {
+                    Console.WriteLine($"Campo: '{key}'");
+                    foreach (var error in entry.Errors)
+                    {
+                        Console.WriteLine($"  - Error: {error.ErrorMessage}");
+                        Console.WriteLine($"  - Exception: {error.Exception?.Message}");
+                    }
+                    Console.WriteLine($"  - AttemptedValue: {entry.AttemptedValue}");
+                }
+            }
+            Console.WriteLine("=============================================");
+
+            Console.Write("Model state invalid, recargando view : ");
+            var json = JsonSerializer.Serialize(modelo, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            Console.WriteLine("===== MODELO COMPLETO RECIBIDO =====");
+            Console.WriteLine(json);
+            Console.WriteLine("====================================");
+
+
+           
+            // Devolver vista con ViewModel COMPLETO
+            return View(modelo);
+        }
+
+
+        Console.Write("ejecutando metodo crear en el int id consulta");
+
+        int idConsulta = await repositorioConsultas.Crear(modelo.Consulta);
+
+        var pago = new Pago
+        {
+            IdConsulta = idConsulta,
+            IdPaciente = modelo.Consulta.IdPaciente,
+            Monto = modelo.Pago.Monto,
+            MetodoPago = modelo.Pago.MetodoPago,
+            FechaPago = DateTime.Now
+        };
+
+        await repositorioPagos.Crear(pago);
 
         TempData["mensaje"] = "Consulta registrada exitosamente.";
         return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
-    public IActionResult RegistrarConsulta()
+    public async Task<IActionResult> RegistrarConsulta()
     {
-
-        var doctores = repositorioDoctores.ObtenerTodos();
-        var pacientes = repositorioPacientes.ObtenerTodos();
+        var doctores = await repositorioDoctores.ObtenerTodos();
+        var pacientes = await repositorioPacientes.ObtenerTodos();
 
         var viewModel = new RegistrarConsultaViewModel
         {
             Consulta = new Consulta(),
-            Doctores = doctores.Result.Select(d =>
+            Doctores = doctores.Select(d =>
                 new SelectListItem($"{d.Nombre} {d.Apellido}", d.IdDoctor.ToString())),
-            Pacientes = pacientes.Result.Select(p =>
+            Pacientes = pacientes.Select(p =>
                 new SelectListItem($"{p.Nombre} {p.Apellido}", p.IdPaciente.ToString()))
         };
 
         return View(viewModel);
     }
+
 
 
 
