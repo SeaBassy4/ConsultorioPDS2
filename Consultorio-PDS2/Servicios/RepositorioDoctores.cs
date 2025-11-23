@@ -11,6 +11,8 @@ namespace Filmify.Servicios
         Task Crear(Doctor doctor);
         Task Actualizar(Doctor doctor);
         Task Eliminar(int idDoctor);
+
+        Task<Doctor> ObtenerPorIdUsuario(int idUsuario);
     }
 
     public class RepositorioDoctores : IRepositorioDoctores
@@ -68,6 +70,14 @@ namespace Filmify.Servicios
         {
             using var connection = new SqlConnection(connectionString);
             await connection.ExecuteAsync("DELETE FROM Doctores WHERE IdDoctor = @IdDoctor", new { IdDoctor = idDoctor });
+        }
+
+        public async Task<Doctor> ObtenerPorIdUsuario(int idUsuario)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<Doctor>(
+                "SELECT * FROM Doctores WHERE IdUsuario = @IdUsuario",
+                new { IdUsuario = idUsuario });
         }
     }
 }

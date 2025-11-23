@@ -7,21 +7,18 @@
 <h2>Consultas del Doctor</h2>
 
 <form asp-action="VerConsultas" method="get">
-    <input type="hidden" name="idDoctor" value="2" /> 
-
     <div class="mb-3">
         <label for="IdPacienteSeleccionado" class="form-label">Selecciona un paciente:</label>
         <select name="idPaciente" asp-items="Model.Pacientes" class="form-select">
-        <option value="">-- Selecciona --</option>
+            <option value="">-- Todos los pacientes --</option>
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Ver Consultas</button>
+    <button type="submit" class="btn btn-primary">Filtrar Consultas</button>
 </form>
 
 @if (Model.Consultas != null && Model.Consultas.Any())
 {
-    
     <h4 class="mt-4">Consultas del paciente seleccionado:</h4>
     <table class="table table-striped">
         <thead>
@@ -29,6 +26,8 @@
                 <th>Fecha</th>
                 <th>Motivo</th>
                 <th>Diagnóstico</th>
+                <th>Tratamiento</th>
+                <th>Observaciones</th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +37,16 @@
                     <td>@c.FechaConsulta.ToShortDateString()</td>
                     <td>@c.Motivo</td>
                     <td>@c.Diagnostico</td>
+                    <td>@c.Tratamiento</td>
+                    <td>@c.Observaciones</td>
                 </tr>
             }
         </tbody>
     </table>
+}
+else if (Model.IdPacienteSeleccionado > 0)
+{
+    <div class="alert alert-info mt-4">
+        No se encontraron consultas para el paciente seleccionado.
+    </div>
 }

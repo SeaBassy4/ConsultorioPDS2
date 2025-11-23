@@ -28,15 +28,21 @@ namespace Filmify.Servicios
         }
 
 
+        // En tu RepositorioPacientes
         public async Task<IEnumerable<Paciente>> ObtenerPorDoctor(int idDoctor)
         {
             using var connection = new SqlConnection(connectionString);
 
-            return await connection.QueryAsync<Paciente>(
+            var pacientes = await connection.QueryAsync<Paciente>(
                 "sp_PacientesPorDoctor",
                 new { IdDoctor = idDoctor },
-                commandType: CommandType.StoredProcedure
-            );
+                commandType: CommandType.StoredProcedure);
+
+            // Eliminar duplicados por ID
+            return pacientes
+                .GroupBy(p => p.IdPaciente)
+                .Select(g => g.First())
+                .ToList();
         }
 
         // 👇 Nuevo método para registrar pacientes

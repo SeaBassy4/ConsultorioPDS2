@@ -35,9 +35,25 @@ public class DoctorController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> VerConsultas(int idDoctor, int? idPaciente)
+    public async Task<IActionResult> VerConsultas(int? idPaciente)
     {
-        var pacientes = await repositorioPacientes.ObtenerPorDoctor(idDoctor);
+        // 1. Obtener el ID del usuario logueado
+        var idUsuario = int.Parse(User.FindFirst("IdUsuario")?.Value ?? "0");
+        Console.WriteLine("idUsuario del logged user: " + idUsuario);
+
+        // 2. Obtener el doctor basado en el usuario logueado
+        var doctor = await repositorioDoctores.ObtenerPorIdUsuario(idUsuario);
+
+        if (doctor == null)
+        {
+            ViewBag.Error = "No se encontró información del doctor.";
+            return View(new DoctorConsultas());
+        }
+
+        Console.WriteLine("Doctor encontrado - ID: " + doctor.IdDoctor);
+
+        // 3. Obtener pacientes de ESTE doctor
+        var pacientes = await repositorioPacientes.ObtenerPorDoctor(doctor.IdDoctor);
 
         var modelo = new DoctorConsultas
         {
@@ -45,10 +61,14 @@ public class DoctorController : Controller
                 new SelectListItem($"{p.Nombre} {p.Apellido}", p.IdPaciente.ToString()))
         };
 
-        if (idPaciente.HasValue)
+        // 4. Si se seleccionó un paciente, obtener sus consultas
+        if (idPaciente.HasValue && idPaciente.Value > 0)
         {
             modelo.IdPacienteSeleccionado = idPaciente.Value;
-            var consultas = await repositorioHistorial.ObtenerPorDoctorYPaciente(idDoctor, idPaciente.Value);
+
+            // Usar doctor.IdDoctor (del doctor logueado) en lugar del parámetro
+            var consultas = await repositorioHistorial.ObtenerPorDoctorYPaciente(doctor.IdDoctor, idPaciente.Value);
+
             modelo.Consultas = consultas.Select(c => new HistorialConsulta
             {
                 FechaConsulta = c.FechaConsulta,
@@ -56,18 +76,32 @@ public class DoctorController : Controller
                 Diagnostico = c.Diagnostico,
                 Tratamiento = c.Tratamiento,
                 Observaciones = c.Observaciones,
-                //Estado = c.Estado
+                // Estado = c.Estado
             });
-
         }
 
         return View(modelo);
     }
 
-
     [HttpPost]
     public async Task<IActionResult> RegistrarConsulta(RegistrarConsultaViewModel modelo)
     {
+
+        Console.WriteLine("=== CLAIMS DEL USUARIO ===");
+        foreach (var claim in User.Claims)
+        {
+            Console.WriteLine($"Tipo: {claim.Type}, Valor: {claim.Value}");
+        }
+
+        var idUsuario = int.Parse(User.FindFirst("IdUsuario")?.Value ?? "0");
+        Console.WriteLine("IdUsuario logged: " + idUsuario);
+
+        var doctor = await repositorioDoctores.ObtenerPorIdUsuario(idUsuario);
+
+        modelo.Consulta.IdDoctor = doctor.IdDoctor;
+
+        Console.WriteLine("IdDoctor del usuario logged: " + doctor.IdDoctor);
+
 
         modelo.Consulta.FechaConsulta = DateTime.Now;
         modelo.Pago.FechaPago = DateTime.Now;

@@ -37,14 +37,27 @@ namespace Filmify.Controllers
 
             var usuario = await repositorioUsuarios.ObtenerPorId(idUsuario);
 
+
             if (usuario == null || usuario.Contrasena != contrasena)
             {
                 ViewBag.Error = "ID o contraseña incorrectos.";
                 return View();
             }
+            else
+            {
+                Console.WriteLine($"Usuario encontrado:");
+                Console.WriteLine($"  idUsuario: {usuario.idUsuario}");
+                Console.WriteLine($"  NombreUsuario: {usuario.NombreUsuario}");
+                Console.WriteLine($"  Rol: {usuario.Rol}");
+                Console.WriteLine($"  Contrasena: {usuario.Contrasena}");
+                Console.WriteLine($"  Contrasena ingresada: {contrasena}");
+                Console.WriteLine($"  Coinciden?: {usuario.Contrasena == contrasena}");
+            }
 
-            // Crear claims
-            var claims = new List<Claim>
+
+
+                // Crear claims
+                var claims = new List<Claim>
             {
                   new Claim("IdUsuario", usuario.idUsuario.ToString()),
                   new Claim(ClaimTypes.Name, usuario.NombreUsuario),

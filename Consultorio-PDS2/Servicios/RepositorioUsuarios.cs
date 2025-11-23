@@ -35,7 +35,7 @@ namespace Filmify.Servicios
             using var connection = new SqlConnection(connectionString);
 
             return await connection.QueryFirstOrDefaultAsync<Usuario>(
-                @"SELECT idUsuario AS Id,
+                @"SELECT idUsuario,
                          NombreUsuario,
                          Contrasena,
                          Rol,
