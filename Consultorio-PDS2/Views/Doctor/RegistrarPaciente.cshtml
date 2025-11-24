@@ -14,32 +14,38 @@
     <form asp-action="RegistrarPaciente" method="post" class="mx-auto" style="max-width: 600px;">
         <div class="mb-3">
             <label class="form-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" required />
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Apellido</label>
-            <input asp-for="Apellido" class="form-control" required />
+            <input asp-for="Apellido" class="form-control" />
+            <span asp-validation-for="Apellido" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Fecha de Nacimiento</label>
-            <input asp-for="FechaNacimiento" type="date" class="form-control" required />
+            <input asp-for="FechaNacimiento" type="date" class="form-control"/>
+            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Teléfono</label>
             <input asp-for="Telefono" class="form-control" maxlength="10" />
+            <span asp-validation-for="Telefono" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Correo Electrónico</label>
-            <input asp-for="EMail" type="email" class="form-control" />
+            <input asp-for="EMail" class="form-control" />
+            <span asp-validation-for="EMail" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Dirección</label>
             <input asp-for="Direccion" class="form-control" />
+            <span asp-validation-for="Direccion" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-success w-100">Registrar Paciente</button>

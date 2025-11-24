@@ -77,3 +77,6 @@ C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\obj\Debug\net6.0\re
 C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\obj\Debug\net6.0\Consultorio-PDS2.pdb
 C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\obj\Debug\net6.0\Consultorio-PDS2.genruntimeconfig.cache
 C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\obj\Debug\net6.0\ref\Consultorio-PDS2.dll
+C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\bin\Debug\net6.0\cypress\fixtures\example.json
+C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\bin\Debug\net6.0\package-lock.json
+C:\Users\Kacto\source\repos\ConsultorioPDS2\Consultorio-PDS2\bin\Debug\net6.0\package.json
