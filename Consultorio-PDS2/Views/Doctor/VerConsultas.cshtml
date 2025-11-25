@@ -32,11 +32,7 @@
         <label for="IdPacienteSeleccionado" class="form-label">Selecciona un paciente:</label>
 
 
-        <select name="idPaciente" asp-items="Model.Pacientes" class="form-select">
-
-
-            <option value="">-- Todos los pacientes --</option>
-
+        <select name="idPaciente" asp-items="Model.Pacientes" class="form-select" asp-for="IdPacienteSeleccionado">
 
         </select>
 
@@ -62,7 +58,7 @@
 {
 
 
-    <h4 class="mt-4">Consultas del paciente seleccionado:</h4>
+    <h4 class="mt-4">Consultas del paciente seleccionado</h4>
 
 
     <table class="table table-striped">
@@ -143,13 +139,7 @@ else if (Model.IdPacienteSeleccionado > 0)
 {
 
 
-    <div class="alert alert-info mt-4">
-
-
-        No se encontraron consultas para el paciente seleccionado.
-
-
-    </div>
+    <div class="alert alert-info mt-4">No se encontraron consultas para el paciente seleccionado</div>
 
 
 }

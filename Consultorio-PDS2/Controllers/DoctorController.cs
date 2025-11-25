@@ -34,6 +34,7 @@ public class DoctorController : Controller
         this.repositorioPagos = repositorioPagos;
     }
 
+    /*
     [HttpGet]
     public async Task<IActionResult> VerConsultas(int? idPaciente)
     {
@@ -77,6 +78,45 @@ public class DoctorController : Controller
                 Tratamiento = c.Tratamiento,
                 Observaciones = c.Observaciones,
                 // Estado = c.Estado
+            });
+        }
+
+        return View(modelo);
+    }
+    */
+
+    [HttpGet]
+    public async Task<IActionResult> VerConsultas(int? idPaciente)
+    {
+        var idUsuario = int.Parse(User.FindFirst("IdUsuario")?.Value ?? "0");
+        var doctor = await repositorioDoctores.ObtenerPorIdUsuario(idUsuario);
+        var idDoctor = doctor.IdDoctor;
+
+        var pacientes = await repositorioPacientes.ObtenerPorDoctor(idDoctor);
+
+        var modelo = new DoctorConsultas
+        {
+            IdPacienteSeleccionado = idPaciente ?? 0, 
+            Pacientes = new List<SelectListItem>
+                        {
+                            new SelectListItem("-- Todos los pacientes --", "") 
+                        }
+                .Concat(pacientes.Select(p =>
+                    new SelectListItem($"{p.Nombre} {p.Apellido}", p.IdPaciente.ToString())))
+                .ToList()
+        };
+
+        if (idPaciente.HasValue)
+        {
+            modelo.IdPacienteSeleccionado = idPaciente.Value;
+            var consultas = await repositorioHistorial.ObtenerPorDoctorYPaciente(idDoctor, idPaciente.Value);
+            modelo.Consultas = consultas.Select(c => new HistorialConsulta
+            {
+                FechaConsulta = c.FechaConsulta,
+                Motivo = c.Motivo,
+                Diagnostico = c.Diagnostico,
+                Tratamiento = c.Tratamiento,
+                Observaciones = c.Observaciones,
             });
         }
 
