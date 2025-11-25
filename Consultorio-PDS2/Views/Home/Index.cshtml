@@ -1,5 +1,8 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "ConsultorioPDS - Inicio";
+    bool isLoggedIn = User.Identity.IsAuthenticated;
+    string? role = User.FindFirst(ClaimTypes.Role)?.Value;
 }
 
 <style>
@@ -75,50 +78,62 @@
 
     <div class="dashboard-cards">
 
-        <div class="card card-option text-center p-4">
+        @if (isLoggedIn && role == "Doctor")
+        {
+            <div class="card card-option text-center p-4">
             <div class="card-body">
-                <i class="bi bi-person-plus-fill"></i>
-                <h5 class="card-title mt-2">Registrar Paciente</h5>
-                <p class="card-text text-muted mb-3">Agrega nuevos pacientes al sistema.</p>
-                <a asp-controller="Doctor" asp-action="RegistrarPaciente" class="btn btn-primary btn-custom">Registrar</a>
+            <i class="bi bi-person-plus-fill"></i>
+            <h5 class="card-title mt-2">Registrar Paciente</h5>
+            <p class="card-text text-muted mb-3">Agrega nuevos pacientes al sistema.</p>
+            <a asp-controller="Doctor" asp-action="RegistrarPaciente" class="btn btn-primary btn-custom">Registrar</a>
             </div>
-        </div>
+            </div>
 
-        <div class="card card-option text-center p-4">
-            <div class="card-body">
-                <i class="bi bi-clipboard2-plus-fill"></i>
-                <h5 class="card-title mt-2">Registrar Consulta</h5>
-                <p class="card-text text-muted mb-3">Registra nuevas consultas médicas.</p>
-                <a asp-controller="Doctor" asp-action="RegistrarConsulta" class="btn btn-success btn-custom">Registrar</a>
-            </div>
+    <div class="card card-option text-center p-4">
+        <div class="card-body">
+            <i class="bi bi-clipboard2-plus-fill"></i>
+            <h5 class="card-title mt-2">Registrar Consulta</h5>
+            <p class="card-text text-muted mb-3">Registra nuevas consultas médicas.</p>
+            <a asp-controller="Doctor" asp-action="RegistrarConsulta" class="btn btn-success btn-custom">Registrar</a>
         </div>
+    </div>
 
-        <div class="card card-option text-center p-4">
-            <div class="card-body">
-                <i class="bi bi-person-lines-fill"></i>
-                <h5 class="card-title mt-2">Ver Consultas</h5>
-                <p class="card-text text-muted mb-3">Consulta el historial de tus pacientes.</p>
-                <a asp-controller="Doctor" asp-action="VerConsultas" class="btn btn-outline-primary btn-custom">Ver</a>
-            </div>
+    <div class="card card-option text-center p-4">
+        <div class="card-body">
+            <i class="bi bi-person-lines-fill"></i>
+            <h5 class="card-title mt-2">Ver Consultas</h5>
+            <p class="card-text text-muted mb-3">Consulta el historial de tus pacientes.</p>
+            <a asp-controller="Doctor" asp-action="VerConsultas" class="btn btn-outline-primary btn-custom">Ver</a>
         </div>
+    </div>
 
-        <div class="card card-option text-center p-4">
-            <div class="card-body">
-                <i class="bi bi-person-lines-fill"></i>
-                <h5 class="card-title mt-2">Mis Pagos</h5>
-                <p class="card-text text-muted mb-3">Consulta tus pagos de tus pacientes.</p>
-                <a asp-controller="Pagos" asp-action="PagosDelDoctor" class="btn btn-outline-primary btn-custom">Ver</a>
-            </div>
+    <div class="card card-option text-center p-4">
+        <div class="card-body">
+            <i class="bi bi-person-lines-fill"></i>
+            <h5 class="card-title mt-2">Mis Pagos</h5>
+            <p class="card-text text-muted mb-3">Consulta tus pagos.</p>
+            <a asp-controller="Pagos" asp-action="PagosDelDoctor" class="btn btn-outline-primary btn-custom">Ver</a>
         </div>
+    </div>
 
-        <div class="card card-option text-center p-4">
-            <div class="card-body">
-                <i class="bi bi-door-open-fill"></i>
-                <h5 class="card-title mt-2">Registro</h5>
-                <p class="card-text text-muted mb-3">Crea una nueva cuenta de usuario.</p>
-                <a asp-controller="LoginRegistro" asp-action="Registro" class="btn btn-outline-secondary btn-custom">Ir</a>
-            </div>
+        }
+
+        @if (isLoggedIn && role == "Admin")
+{
+    <div class="card card-option text-center p-4">
+        <div class="card-body">
+            <i class="bi bi-door-open-fill"></i>
+            <h5 class="card-title mt-2">Registro Usuario</h5>
+            <p class="card-text text-muted mb-3">Crea una nueva cuenta de usuario.</p>
+            <a asp-controller="LoginRegistro" asp-action="Registro" class="btn btn-outline-secondary btn-custom">Ir</a>
         </div>
+    </div>
+}
+
+            @if (!isLoggedIn)
+            {
+           <p class="text-muted">Por favor inicia sesión para ver opciones.</p>
+            }
 
     </div>
 
