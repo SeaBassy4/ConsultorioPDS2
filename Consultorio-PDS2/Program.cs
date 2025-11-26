@@ -13,6 +13,7 @@ builder.Services.AddTransient<IRepositorioPacientes, RepositorioPacientes>();
 builder.Services.AddTransient<IRepositorioConsultas, RepositorioConsultas>();
 builder.Services.AddTransient<IRepositorioDoctores, RepositorioDoctores>();
 builder.Services.AddTransient<IRepositorioPagos, RepositorioPagos>();
+builder.Services.AddTransient<IRepositorioEspecialidades, RepositorioEspecialidades>();
 
 
 

@@ -1,0 +1,66 @@
+﻿@model DoctorRegistroViewModel
+
+@{
+    ViewData["Title"] = "Registrar Doctor";
+}
+
+<h2>Registrar nuevo doctor</h2>
+
+<form asp-action="Crear" method="post">
+
+    <h4>Datos de Usuario</h4>
+
+    <div class="mb-3">
+        <label>Nombre de Usuario</label>
+        <input asp-for="NombreUsuario" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Contraseña</label>
+        <input asp-for="Contrasena" type="password" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="EMailUsuario" class="form-control"/>
+    </div>
+
+    <hr />
+
+    <h4>Datos del Doctor</h4>
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input asp-for="Nombre" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Apellido</label>
+        <input asp-for="Apellido" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Teléfono</label>
+        <input asp-for="Telefono" class="form-control" 
+        maxlength="10"
+        pattern="\d{10}" 
+        title="Debe tener exactamente 10 números" />
+    </div>
+
+    <div class="mb-3">
+        <label>Especialidad</label>
+        <select asp-for="idEspecialidad" class="form-control">
+            @foreach (var esp in ViewBag.Especialidades)
+            {
+                <option value="@esp.idEspecialidad">@esp.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Registrar Doctor</button>
+</form>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success mt-3">@TempData["success"]</div>
+}

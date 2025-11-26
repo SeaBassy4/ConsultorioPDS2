@@ -7,7 +7,7 @@ namespace Filmify.Servicios
 {
     public interface IRepositorioUsuarios
     {
-        Task Crear(Usuario usuario);
+        Task<int> Crear(Usuario usuario);
         Task<Usuario?> ObtenerPorId(int idUsuario);
         Task<bool> VerificarCredenciales(int idUsuario, string contrasenaPlain);
     }
@@ -21,12 +21,18 @@ namespace Filmify.Servicios
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task Crear(Usuario usuario)
+        public async Task<int> Crear(Usuario usuario)
         {
             using var connection = new SqlConnection(connectionString);
-            await connection.ExecuteAsync(@"
-                INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, EMail)
-                VALUES (@NombreUsuario, @Contrasena, @Rol, @EMail);", usuario);
+
+            var sql = @"
+        INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, EMail)
+        VALUES (@NombreUsuario, @Contrasena, @Rol, @EMail);
+        SELECT CAST(SCOPE_IDENTITY() AS INT);
+    ";
+
+            int id = await connection.ExecuteScalarAsync<int>(sql, usuario);
+            return id;
         }
 
         // ✔ CORREGIDO: ahora usa idUsuario correctamente

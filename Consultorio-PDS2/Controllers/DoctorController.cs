@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text.Json;
 
 
-[Authorize(Roles = "Doctor")]
+
 public class DoctorController : Controller
 {
     private readonly IRepositorioPacientes repositorioPacientes;
@@ -16,6 +16,9 @@ public class DoctorController : Controller
     private readonly IRepositorioConsultas repositorioConsultas;
     private readonly IRepositorioDoctores repositorioDoctores;
     private readonly IRepositorioPagos repositorioPagos;
+    private readonly IRepositorioEspecialidades repositorioEspecialidades;
+    private readonly IRepositorioUsuarios repositorioUsuarios;
+
 
 
 
@@ -24,7 +27,10 @@ public class DoctorController : Controller
         IRepositorioHistorialConsultas repositorioHistorial,
         IRepositorioConsultas repositorioConsultas,
         IRepositorioDoctores repositorioDoctores,
-        IRepositorioPagos repositorioPagos
+        IRepositorioPagos repositorioPagos,
+        IRepositorioEspecialidades repositorioEspecialidades,
+        IRepositorioUsuarios repositorioUsuarios
+
         )
     {
         this.repositorioPacientes = repositorioPacientes;
@@ -32,6 +38,8 @@ public class DoctorController : Controller
         this.repositorioConsultas = repositorioConsultas;
         this.repositorioDoctores = repositorioDoctores;
         this.repositorioPagos = repositorioPagos;
+        this.repositorioEspecialidades = repositorioEspecialidades;
+        this.repositorioUsuarios = repositorioUsuarios;
     }
 
     /*
@@ -257,6 +265,56 @@ public class DoctorController : Controller
         TempData["Mensaje"] = "Paciente registrado correctamente ✅";
         return RedirectToAction("RegistrarPaciente");
     }
+
+
+
+    
+    [HttpGet]
+    public async Task<IActionResult> Crear()
+    {
+        ViewBag.Especialidades = await repositorioEspecialidades.ObtenerTodos();
+        return View();
+    }
+
+    
+    [HttpPost]
+    public async Task<IActionResult> Crear(DoctorRegistroViewModel vm)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Especialidades = await repositorioEspecialidades.ObtenerTodos();
+            return View(vm);
+        }
+
+        // 1️⃣ Crear usuario
+        var usuario = new Usuario
+        {
+            NombreUsuario = vm.NombreUsuario,
+            Contrasena = vm.Contrasena,
+            EMail = vm.EMailUsuario,
+            Rol = "Doctor"
+        };
+
+        int idUsuario = await repositorioUsuarios.Crear(usuario);
+
+        // 2️⃣ Crear doctor asociado
+        var doctor = new Doctor
+        {
+            Nombre = vm.Nombre,
+            Apellido = vm.Apellido,
+            Telefono = vm.Telefono,
+            EMail = vm.EMailUsuario,
+            IdEspecialidad = vm.idEspecialidad,
+            IdUsuario = idUsuario
+        };
+
+        await repositorioDoctores.Crear(doctor);
+
+        TempData["success"] = "Doctor registrado exitosamente.";
+        return RedirectToAction("Crear");
+    }
+
+
 
 
 }
