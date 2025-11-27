@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Especialidad>
+
+@{
+    ViewData["Title"] = "Especialidades";
+}
+
+<h2>Especialidades</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a class="btn btn-primary mb-3" asp-action="Crear">Crear Nueva Especialidad</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var esp in Model)
+        {
+            <tr>
+                <td>@esp.idEspecialidad</td>
+                <td>@esp.Nombre</td>
+                <td>
+                    <form asp-action="Eliminar" method="post" onsubmit="return confirm('¿Seguro que deseas eliminar esta especialidad?');">
+                        <input type="hidden" name="id" value="@esp.idEspecialidad" />
+                        <button class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
